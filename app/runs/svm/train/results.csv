@@ -1,0 +1,9 @@
+metric,value
+accuracy,25.89869281045752
+macro_avg_precision,23.632739453272524
+macro_avg_recall,23.402179887149735
+macro_avg_f1,23.337271592359148
+weighted_avg_precision,25.728738352398267
+weighted_avg_recall,25.89869281045752
+weighted_avg_f1,25.617844010597224
+training_time_seconds,247.48157358169556
