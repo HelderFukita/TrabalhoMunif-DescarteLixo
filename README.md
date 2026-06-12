@@ -1,166 +1,281 @@
-# Deluxirus AI
+# ♻️ Deluxirus AI
 
-Aplicação de inteligência artificial para classificação de resíduos com YOLOv8, backend em Flask e frontend mobile/web em React Native.
+Aplicação de Inteligência Artificial para classificação de resíduos recicláveis utilizando Visão Computacional, composta por um backend em Flask, frontend em React Native e modelos de Machine Learning e Deep Learning para análise e classificação de imagens.
 
-## Visão Geral
+---
 
-Este projeto identifica o tipo de resíduo em uma imagem e retorna:
+# 👥 Integrantes da Equipe
 
-- a classe prevista pelo modelo
-- a confiança da predição
-- a recomendação de descarte
+* **Helder Augusto Kusagari Fukita** — RA: `23197574-2`
+* **Erick Oliveira de Souza** — RA: `23223824-2`
+* **Andrei Luiz Silva** — RA: `23087473-2`
 
-## O que cada parte faz
+---
 
-### Backend
+# 📖 Visão Geral
 
-O backend fica em `app/app.py` e é responsável por:
+O **Deluxirus AI** é um sistema desenvolvido para auxiliar na identificação e descarte correto de resíduos recicláveis por meio da análise de imagens.
 
-- carregar o modelo treinado
-- receber imagens por upload ou URL
-- executar a inferência com YOLOv8
-- devolver o resultado em JSON
-- traduzir a classe para pt-BR e mapear o descarte
+O projeto foi dividido em duas etapas:
 
-### Frontend
+## Sistema Original
 
-O frontend em React Native fica na pasta `app/` do projeto Expo e é responsável por:
+Utilização do modelo **YOLOv8** para classificação automática de resíduos através de imagens enviadas pelo usuário.
 
-- exibir a tela de introdução
-- permitir acesso à funcionalidade principal
-- capturar imagem pela câmera
-- importar imagem da galeria no mobile e no web
-- mostrar a prévia da imagem importada
-- exibir o resultado da classificação
+## Expansão Acadêmica
 
-### Treinamento
+Comparação entre uma abordagem de **Deep Learning (YOLOv8)** e uma abordagem de **Machine Learning Tradicional (SVM)**, avaliando desempenho, acurácia e custo computacional.
 
-O script `app/train.py` é usado para treinar o modelo com o dataset local.
+---
 
-## Tecnologias Utilizadas
+# 🏗️ Arquitetura do Projeto
 
-- Python 3.10 / 3.11
-- YOLOv8 (Ultralytics)
-- PyTorch
-- Flask
-- Flask-CORS
-- React Native
-- Expo Router
-- Expo Camera
-- Expo Image Picker
+```text
+Frontend (React Native)
+          │
+          ▼
+Backend (Flask API)
+          │
+          ▼
+Modelo de IA
+ ├── YOLOv8
+ └── SVM
+```
 
-## Requisitos
+---
 
-- Python instalado
-- Node.js e npm instalados
-- Dependências Python instaladas
-- Dependências do frontend instaladas com npm
+# 🛠️ Tecnologias Utilizadas
+
+## Backend
+
+* Python 3.10 / 3.11
+* Flask
+* Flask-CORS
+* Requests
+
+## Inteligência Artificial
+
+* YOLOv8 (Ultralytics)
+* PyTorch
+* OpenCV
+* NumPy
+* Pillow
+* Scikit-Learn (SVM)
+
+## Frontend
+
+* React Native
+* Expo
+* Expo Router
+* Expo Camera
+* Expo Image Picker
+
+---
+
+# 📋 Requisitos
+
+## Backend
+
+* Python instalado
+* Pip atualizado
+
+## Frontend
+
+* Node.js
+* npm
+
+## Hardware
 
 ### GPU CUDA é obrigatória?
 
-Não. O projeto funciona sem placa de vídeo com CUDA.
+**Não.**
 
-- Com GPU CUDA e PyTorch compatível, o treinamento fica mais rápido.
-- Sem GPU, o treino roda normalmente na CPU, apenas com desempenho menor.
-- Para testes, desenvolvimento e inferência, CPU é suficiente.
+O sistema funciona normalmente utilizando apenas CPU.
 
-### Como verificar se a GPU está ativa
+Caso exista uma GPU compatível com CUDA e uma versão adequada do PyTorch instalada, o treinamento será executado significativamente mais rápido.
 
-Antes de iniciar o treinamento, você pode confirmar se o PyTorch está enxergando a GPU com este comando:
+Para testes, desenvolvimento e inferência, a CPU é suficiente.
+
+---
+
+# 🔍 Verificando GPU CUDA
+
+Execute:
 
 ```bash
 python -c "import torch; print('CUDA:', torch.cuda.is_available()); print('GPU:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'Nenhuma')"
 ```
 
-Se a GPU estiver ativa, a saída deve indicar `CUDA: True` e mostrar o nome da placa. Se aparecer `CUDA: False`, o treino vai continuar funcionando na CPU.
+Exemplo:
 
-## Instalação
+```text
+CUDA: True
+GPU: NVIDIA RTX XXXX
+```
 
-### 1. Atualizar o pip
+ou
+
+```text
+CUDA: False
+GPU: Nenhuma
+```
+
+---
+
+# 🚀 Instalação
+
+## 1. Atualizar o Pip
 
 ```bash
 python -m pip install --upgrade pip
 ```
 
-### 2. Instalar PyTorch
+## 2. Instalar PyTorch
 
-#### Com GPU CUDA 11.8
+### Com CUDA 11.8
 
 ```bash
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 ```
 
-#### Somente CPU
+### Apenas CPU
 
 ```bash
 pip install torch torchvision torchaudio
 ```
 
-### 3. Instalar dependências do backend
+## 3. Instalar Dependências do Backend
 
 ```bash
-pip install flask flask-cors ultralytics opencv-python pillow numpy requests
+pip install flask flask-cors ultralytics opencv-python pillow numpy requests scikit-learn
 ```
 
-### 4. Instalar dependências do frontend
-
-Na raiz do projeto:
+## 4. Instalar Dependências do Frontend
 
 ```bash
 npm install
 ```
 
-### 5. Instalar Expo Camera, se necessário
+## 5. Instalar Expo Camera
 
 ```bash
 npx expo install expo-camera
 ```
 
-## Execução
+---
 
-### Backend
+# ▶️ Execução da Aplicação
+
+## Backend
 
 ```bash
 cd app
 python app.py
 ```
 
-Servidor disponível em:
+Servidor:
 
-```bash
+```text
 http://localhost:5000
 ```
 
-### Frontend
-
-Na raiz do projeto:
+## Frontend Web
 
 ```bash
 npm run web
 ```
 
-Ou, para abrir em outras plataformas do Expo:
+## Frontend Expo
 
 ```bash
 npm start
 ```
 
-## Treinamento do Modelo
+---
+
+# 🤖 Sistema Original — YOLOv8
+
+## Objetivo
+
+Classificar resíduos recicláveis através de imagens e fornecer recomendações de descarte.
+
+### Funcionalidades
+
+O sistema retorna:
+
+* Classe prevista
+* Classe traduzida para Português
+* Confiança da predição
+* Recomendação de descarte
+
+---
+
+## Backend
+
+Localização:
+
+```text
+app/app.py
+```
+
+### Responsabilidades
+
+* Carregar o modelo treinado
+* Receber imagens via upload
+* Receber imagens via URL
+* Executar inferência
+* Retornar resultados em JSON
+* Traduzir classes para português
+* Mapear o descarte adequado
+
+---
+
+## Frontend
+
+Responsável por:
+
+* Tela inicial
+* Navegação da aplicação
+* Captura de imagens pela câmera
+* Importação pela galeria
+* Visualização prévia da imagem
+* Exibição dos resultados
+
+---
+
+## Treinamento YOLOv8
+
+Arquivo:
+
+```text
+app/train.py
+```
+
+Execução:
 
 ```bash
 cd app
 python train.py
 ```
 
-Se estiver usando CPU, o treinamento continua funcionando. Apenas espere mais tempo para concluir.
+Modelo utilizado:
 
-## EndPoint de Classificação
+```text
+yolov8n-cls.pt
+```
+
+---
+
+## Endpoint de Classificação
 
 ### POST `/detect`
 
-Aceita imagem por upload ou URL pública.
+Aceita:
 
-#### Exemplo com URL
+* Upload de imagem
+* URL pública de imagem
+
+### Exemplo
 
 ```json
 {
@@ -168,7 +283,7 @@ Aceita imagem por upload ou URL pública.
 }
 ```
 
-#### Resposta
+### Resposta
 
 ```json
 {
@@ -179,20 +294,398 @@ Aceita imagem por upload ou URL pública.
 }
 ```
 
-## Estrutura Principal
+---
 
-```text
-app/
-├── app.py
-├── train.py
-├── HomeScreen.tsx
-├── scan.tsx
-├── index.tsx
-└── dataset/
+# 🎓 Expansão Acadêmica — Comparação YOLOv8 x SVM
+
+## Descrição do Problema
+
+A gestão eficiente de resíduos sólidos e a correta separação de materiais recicláveis representam desafios ambientais e logísticos significativos.
+
+A automação desse processo através de Visão Computacional pode reduzir erros de triagem, aumentar a produtividade e diminuir a contaminação dos materiais recicláveis.
+
+## Objetivo
+
+O objetivo deste trabalho é comparar duas abordagens distintas de Inteligência Artificial para classificação de resíduos:
+
+* Machine Learning Tradicional (SVM)
+* Deep Learning (YOLOv8)
+
+---
+
+## 🔬 Hipótese Científica
+
+Modelos baseados em Deep Learning apresentam desempenho superior em tarefas de classificação visual quando comparados aos algoritmos tradicionais de Machine Learning.
+
+Entretanto, modelos tradicionais como SVM exigem menor custo computacional e menor tempo de treinamento.
+
+Essa comparação evidencia o trade-off entre:
+
+* Eficiência computacional
+* Precisão da classificação
+
+---
+
+# 📊 Dataset
+
+Foi utilizado o dataset:
+
+📎 **Garbage Classification V2 (Kaggle)**
+
+https://www.kaggle.com/datasets/sumn2u/garbage-classification-v2
+
+### Classes presentes
+
+* Papel
+* Plástico
+* Vidro
+* Metal
+* Papelão
+* Entre outras categorias de resíduos
+
+---
+
+# 🧹 Preparação dos Dados
+
+## Pipeline YOLOv8
+
+As imagens foram:
+
+* Redimensionadas para 224x224 pixels
+* Mantidas em RGB
+* Utilizadas diretamente pela rede neural
+
+### Vantagens
+
+* Preservação das informações de cor
+* Preservação de texturas
+* Preservação de padrões espaciais
+
+---
+
+## Pipeline SVM
+
+As imagens foram:
+
+* Convertidas para escala de cinza
+* Redimensionadas para 64x64 pixels
+* Transformadas em vetores unidimensionais
+
+```python
+imagem.flatten()
 ```
 
-## Observações
+Resultado:
 
-- O modelo utilizado é um classificador YOLOv8 (`yolov8n-cls`).
-- A interface foi pensada para mobile como prioridade, mas também funciona no web.
-- A classe exibida na tela é traduzida para pt-BR.
+```text
+64 × 64 = 4096 características
+```
+
+Objetivo:
+
+Reduzir dimensionalidade e permitir treinamento viável do SVM.
+
+---
+
+# 🛠️ Modelos Utilizados
+
+## Parte 1 — Machine Learning Tradicional
+
+### SVM (Support Vector Machine)
+
+Arquivo:
+
+```text
+train_svm.py
+```
+
+Configuração:
+
+```text
+Kernel RBF
+```
+
+O SVM busca encontrar hiperplanos ótimos capazes de separar as diferentes classes.
+
+---
+
+## Parte 2 — Deep Learning
+
+### YOLOv8 Nano Classification
+
+Arquivo:
+
+```text
+train.py
+```
+
+Modelo:
+
+```text
+yolov8n-cls.pt
+```
+
+Treinamento:
+
+```text
+30 épocas
+```
+
+A rede ajusta seus pesos utilizando gradiente descendente e retropropagação.
+
+---
+
+# 📈 Avaliação dos Modelos
+
+## Observação Importante
+
+O problema tratado é de classificação.
+
+Portanto:
+
+* ❌ MAE (Erro Médio Absoluto)
+* ❌ MSE (Erro Quadrático Médio)
+
+não são métricas adequadas.
+
+Foram utilizadas métricas específicas para classificação.
+
+---
+
+## Métricas Utilizadas
+
+### YOLOv8
+
+* Accuracy Top-1
+* Accuracy Top-5
+* Loss de Treino
+* Loss de Validação
+* Tempo de Treinamento
+
+### SVM
+
+* Accuracy
+* Precision
+* Recall
+* F1-Score
+* Macro Average
+* Weighted Average
+* Confusion Matrix
+
+---
+
+# 📊 Resultados Obtidos
+
+| Métrica         | SVM       | YOLOv8    |
+| --------------- | --------- | --------- |
+| Acurácia Final  | Atualizar | Atualizar |
+| Tempo de Treino | Atualizar | Atualizar |
+| Loss Final      | N/A       | Atualizar |
+
+---
+
+# 📈 Gráficos Gerados
+
+## YOLOv8
+
+### Curva de Treinamento
+
+```bash
+python plot_training_curves.py
+```
+
+Gera:
+
+```text
+analise_treinamento_yolo.png
+```
+
+Exibe:
+
+* Loss de treino
+* Loss de validação
+* Accuracy
+* Learning Rate
+
+---
+
+## SVM
+
+### Curva de Aprendizado
+
+```bash
+python plot_svm_learning_curve.py
+```
+
+Gera:
+
+```text
+curva_aprendizado_svm.png
+```
+
+Exibe:
+
+* Accuracy versus quantidade de dados de treinamento
+
+### Matriz de Confusão
+
+Gerada durante:
+
+```bash
+python train_svm.py
+```
+
+Arquivo:
+
+```text
+matriz_confusao.png
+```
+
+---
+
+## Comparação Entre Modelos
+
+```bash
+python comparacao_grafica_melhorada.py
+```
+
+Gera:
+
+```text
+comparacao_modelos_completa.png
+```
+
+Comparações:
+
+* Accuracy
+* Tempo de treinamento
+* Loss
+* Curva de aprendizado
+
+---
+
+# 🚀 Como Reproduzir os Experimentos
+
+## 1. Treinar YOLO
+
+```bash
+python train.py
+```
+
+## 2. Gerar Curvas do YOLO
+
+```bash
+python plot_training_curves.py
+```
+
+## 3. Gerar Curva de Aprendizado do SVM
+
+```bash
+python plot_svm_learning_curve.py
+```
+
+## 4. Treinar SVM
+
+```bash
+python train_svm.py
+```
+
+Arquivos gerados:
+
+* modelo_svm.pkl
+* results.csv
+* classification_report.txt
+* matriz_confusao.png
+
+## 5. Comparar Modelos
+
+```bash
+python comparacao_grafica_melhorada.py
+```
+
+---
+
+# 📂 Estrutura de Pastas
+
+```text
+runs/
+├── classify/
+│   ├── train/
+│   ├── train2/
+│   ├── train3/
+│   └── ...
+│
+└── svm/
+    ├── train/
+    │   ├── modelo_svm.pkl
+    │   ├── results.csv
+    │   ├── classification_report.txt
+    │   └── matriz_confusao.png
+    │
+    ├── train2/
+    ├── train3/
+    └── ...
+```
+
+---
+
+# 💡 Análise Crítica
+
+Os resultados demonstram que o YOLOv8 apresenta maior capacidade de generalização e melhor desempenho em tarefas de classificação visual.
+
+Sua arquitetura convolucional permite capturar padrões espaciais, formas, texturas e características cromáticas dos resíduos.
+
+Por outro lado, o SVM mostrou-se uma alternativa extremamente eficiente em termos computacionais, exigindo menor tempo de treinamento e dispensando hardware especializado.
+
+### YOLOv8
+
+Indicado para:
+
+* Sistemas industriais
+* Triagem automatizada
+* Aplicações com alta exigência de precisão
+
+### SVM
+
+Indicado para:
+
+* Sistemas embarcados
+* Hardware limitado
+* Aplicações de baixo custo
+
+---
+
+# 📝 Notas Finais
+
+* O problema abordado é de classificação, não regressão.
+* Accuracy, Precision, Recall e F1-Score são as métricas mais relevantes.
+* Todos os gráficos são exportados em alta resolução (300 DPI).
+* O projeto demonstra, na prática, diferenças entre abordagens de Machine Learning Tradicional e Deep Learning aplicadas à reciclagem inteligente.
+
+---
+
+# 📚 Referências
+
+## Dataset
+
+**Garbage Classification V2**
+
+https://www.kaggle.com/datasets/sumn2u/garbage-classification-v2
+
+## YOLOv8
+
+https://docs.ultralytics.com
+
+## Scikit-Learn
+
+https://scikit-learn.org
+
+## PyTorch
+
+https://pytorch.org
+
+---
+
+# ♻️ Deluxirus AI
+
+**Reciclagem Inteligente através da Inteligência Artificial.**
