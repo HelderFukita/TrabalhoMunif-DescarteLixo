@@ -685,7 +685,3 @@ https://scikit-learn.org
 https://pytorch.org
 
 ---
-
-# ♻️ Deluxirus AI
-
-**Reciclagem Inteligente através da Inteligência Artificial.**
